@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" 
+    layout="vertical"
+    creationComplete = "init()" >
+    
+    <mx:Script>
+        <![CDATA[
+            import mx.utils.ObjectUtil;
+
+            private var nc:NetConnection;
+            private var ns:NetStream;
+            private var video:Video;
+            private var meta:Object;
+
+            public function init():void 
+            {
+              startVideo();
+
+            }
+
+            public function startVideo():void {
+
+              var nsClient:Object = {};
+//              nsClient.onMetaData = ns_onMetaData;
+              nsClient.onCuePoint = ns_onCuePoint;
+ 
+                nc = new NetConnection();
+                nc.connect(null);
+ 
+                ns = new NetStream(nc);
+                ns.play("cuepoints.flv");
+                ns.client = nsClient;
+ 
+                video = new Video();
+                video.attachNetStream(ns);
+                uic.addChild(video);
+
+            }
+
+            private function ns_onCuePoint(infoObject:Object):void {
+              mainTxt.text += "\nCue: {\n";
+              var key:String;
+              for(key in infoObject) {
+                mainTxt.text += key + ": " + infoObject[key] + "\n";
+              }
+              mainTxt.text += "}";
+            }
+
+
+        ]]>
+    </mx:Script>
+
+    <mx:UIComponent id="uic" width="300" height="300" />
+
+    <mx:TextArea id = "mainTxt" width="300" height="140" />
+
+</mx:Application>

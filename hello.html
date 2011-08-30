@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <title>Flex Hello World</title>
+  </head>
+  <body>
+    <div>
+
+      <!-- classid is always the same no matter the swf file -->
+      <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="450" height="450">
+        <param name="movie" value="hello.swf" />
+        <!--[if !IE]>-->
+        <object type="application/x-shockwave-flash" data="hello.swf" width="500" height="500">
+        <!--<![endif]-->
+          <p>Alternative content</p>
+        <!--[if !IE]>-->
+        </object>
+        <!--<![endif]-->
+      </object>
+
+    </div>
+  </body>
+</html>
